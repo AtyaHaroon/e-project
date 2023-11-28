@@ -1,0 +1,34 @@
+﻿@model IEnumerable<theme.Models.Interviewer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<h2>Interviewers</h2>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+    <a href="/interviewers/create" class="btn btn-inverse-primary me-md-2" type="button"> ADD</a>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.Name)
+        </th>
+        <th>Action</th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-inverse-warning" }) |    
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-inverse-danger" })
+        </td>
+    </tr>
+}
+
+</table>

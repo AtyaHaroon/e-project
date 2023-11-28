@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineRecuriment_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="applicant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Image" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Cv" Type="varchar" MaxLength="255" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="Qualification" Type="varchar" MaxLength="50" />
+    <Property Name="Contact" Type="varchar" MaxLength="50" />
+    <Property Name="Current_status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Message" Type="varchar" MaxLength="250" />
+    <Property Name="Subject" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Designation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="Qualification" Type="varchar" MaxLength="50" />
+    <Property Name="Contact" Type="varchar" MaxLength="50" />
+    <Property Name="Dept_id" Type="int" />
+    <Property Name="Desig_id" Type="int" />
+  </EntityType>
+  <EntityType Name="HR">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Passwod" Type="varchar" MaxLength="50" />
+    <Property Name="Super_User" Type="bit" />
+  </EntityType>
+  <EntityType Name="Interview_schd">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Time" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="Inte_id" Type="int" />
+    <Property Name="Vacc_id" Type="int" />
+    <Property Name="Apli_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Interviewer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Emp_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Result">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Intsh_id" Type="int" />
+    <Property Name="Apli_id" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Vacancy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Salary" Type="money" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Hr_id" Type="int" />
+    <Property Name="Desig_id" Type="int" />
+    <Property Name="Dept_id" Type="int" />
+    <Property Name="Image" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK_Employee_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Dept_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Designation">
+    <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Designation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Desig_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interview_schd_applicant">
+    <End Role="applicant" Type="Self.applicant" Multiplicity="0..1" />
+    <End Role="Interview_schd" Type="Self.Interview_schd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="applicant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Interview_schd">
+        <PropertyRef Name="Apli_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interview_schd_Interviewer">
+    <End Role="Interviewer" Type="Self.Interviewer" Multiplicity="0..1" />
+    <End Role="Interview_schd" Type="Self.Interview_schd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interviewer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Interview_schd">
+        <PropertyRef Name="Inte_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interview_schd_Vacancy">
+    <End Role="Vacancy" Type="Self.Vacancy" Multiplicity="0..1" />
+    <End Role="Interview_schd" Type="Self.Interview_schd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vacancy">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Interview_schd">
+        <PropertyRef Name="Vacc_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interviewer_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Interviewer" Type="Self.Interviewer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Interviewer">
+        <PropertyRef Name="Emp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Result_applicant">
+    <End Role="applicant" Type="Self.applicant" Multiplicity="0..1" />
+    <End Role="Result" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="applicant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Result">
+        <PropertyRef Name="Apli_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Result_Interview_schd">
+    <End Role="Interview_schd" Type="Self.Interview_schd" Multiplicity="0..1" />
+    <End Role="Result" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interview_schd">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Result">
+        <PropertyRef Name="Intsh_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vacancy_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Vacancy" Type="Self.Vacancy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vacancy">
+        <PropertyRef Name="Dept_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vacancy_Designation">
+    <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+    <End Role="Vacancy" Type="Self.Vacancy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Designation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vacancy">
+        <PropertyRef Name="Desig_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vacancy_HR">
+    <End Role="HR" Type="Self.HR" Multiplicity="0..1" />
+    <End Role="Vacancy" Type="Self.Vacancy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HR">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vacancy">
+        <PropertyRef Name="Hr_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OnlineRecuriment_dbModelStoreContainer">
+    <EntitySet Name="applicant" EntityType="Self.applicant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HR" EntityType="Self.HR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Interview_schd" EntityType="Self.Interview_schd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Interviewer" EntityType="Self.Interviewer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Result" EntityType="Self.Result" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vacancy" EntityType="Self.Vacancy" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+      <End Role="Designation" EntitySet="Designation" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interview_schd_applicant" Association="Self.FK_Interview_schd_applicant">
+      <End Role="applicant" EntitySet="applicant" />
+      <End Role="Interview_schd" EntitySet="Interview_schd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interview_schd_Interviewer" Association="Self.FK_Interview_schd_Interviewer">
+      <End Role="Interviewer" EntitySet="Interviewer" />
+      <End Role="Interview_schd" EntitySet="Interview_schd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interview_schd_Vacancy" Association="Self.FK_Interview_schd_Vacancy">
+      <End Role="Vacancy" EntitySet="Vacancy" />
+      <End Role="Interview_schd" EntitySet="Interview_schd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interviewer_Employee" Association="Self.FK_Interviewer_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Interviewer" EntitySet="Interviewer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Result_applicant" Association="Self.FK_Result_applicant">
+      <End Role="applicant" EntitySet="applicant" />
+      <End Role="Result" EntitySet="Result" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Result_Interview_schd" Association="Self.FK_Result_Interview_schd">
+      <End Role="Interview_schd" EntitySet="Interview_schd" />
+      <End Role="Result" EntitySet="Result" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vacancy_Department" Association="Self.FK_Vacancy_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Vacancy" EntitySet="Vacancy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vacancy_Designation" Association="Self.FK_Vacancy_Designation">
+      <End Role="Designation" EntitySet="Designation" />
+      <End Role="Vacancy" EntitySet="Vacancy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vacancy_HR" Association="Self.FK_Vacancy_HR">
+      <End Role="HR" EntitySet="HR" />
+      <End Role="Vacancy" EntitySet="Vacancy" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<theme.Models.Vacancy>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<h2>Vacancy</h2>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+    <a href="/Vacancies/create" class="btn btn-inverse-primary me-md-2" type="button"> ADD</a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Designation.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HR.Name)
+        </th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            <img src="@Url.Content(item.Image.ToString())" alt="Alternate Text" width="150px" height="150px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Designation.Name)
+        </td>
+        <td>
+          
+            @Session["name"]
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-inverse-warning" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-inverse-danger" })
+        </td>
+    </tr>
+}
+
+</table>
